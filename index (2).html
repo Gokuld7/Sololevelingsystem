@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+      /* Other styles remain unchanged */
+  h1 {
+    color: white; /* Change this to your desired color */
+  }
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://giffiles.alphacoders.com/221/221483.gif'); /* Add your background image URL */
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 8px;
+      background-color: lightgreen;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 300px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: #808080; /* Gray color for completed tasks */
+    }
+    button {
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>To-Do List</h1>
+
+  <form id="todoForm">
+    <input type="text" id="taskInput" placeholder="Add a new task" required>
+    <button type="button" onclick="addTask()">Add Task</button>
+  </form>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    function addTask() {
+      var taskInput = document.getElementById('taskInput');
+      var taskList = document.getElementById('taskList');
+
+      if (taskInput.value.trim() !== '') {
+        var newTask = document.createElement('li');
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        var deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = function () {
+          taskList.removeChild(newTask);
+        };
+
+        newTask.appendChild(checkbox);
+        newTask.appendChild(document.createTextNode(' ' + taskInput.value));
+        newTask.appendChild(deleteBtn);
+
+        taskList.appendChild(newTask);
+        taskInput.value = '';
+      }
+    }
+
+    document.getElementById('taskList').addEventListener('change', function (event) {
+      var checkbox = event.target;
+      var task = checkbox.parentNode;
+
+      if (checkbox.checked) {
+        task.classList.add('completed');
+      } else {
+        task.classList.remove('completed');
+      }
+    });
+  </script>
+
+</body>
+</html>
